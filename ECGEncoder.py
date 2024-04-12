@@ -1,3 +1,4 @@
+import time
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -52,7 +53,7 @@ class ECGEncoder():
         )
 
         # Load the model except the last layer
-        state_dict = torch.load(self.best_model_path)
+        state_dict = torch.load(self.best_model_path, map_location=torch.device('cpu)) # Since we plan to run this in a CPU at inference.
         model.load_state_dict(state_dict, strict=False)
         return model
         
@@ -66,6 +67,9 @@ class ECGEncoder():
     
 # Example Use case
 ecg_encoder = ECGEncoder()
-input_ecg = torch.randn(1, 1, 650)
-encoded = ecg_encoder.encode(input_ecg)[0]
-print(f"Encoded LDR: {encoded}\n{type(encoded), encoded.shape}")
+for i in range(100):
+    start = time.time()
+    input_ecg = torch.randn(1, 1, 650)
+    encoded = ecg_encoder.encode(input_ecg)[0]
+    print(f"Encoded LDR: {encoded}\n{type(encoded), encoded.shape}", end="\t")
+    print(f"Inference time: {time.time() - start}\n"
