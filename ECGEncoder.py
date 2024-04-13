@@ -180,10 +180,10 @@ class ECGEncoder():
         return encoded
     
 # Example Use case
-ecg_encoder = ECGEncoder()
-for i in range(100):
-    start = time.time()
-    input_ecg = torch.randn(1, 1, 650)
-    encoded = ecg_encoder.encode(input_ecg)[0]
-    print(f"Encoded LDR: {encoded}\n{type(encoded), encoded.shape}", end="\t")
-    print(f"Inference time: {time.time() - start}\n")
+# ecg_encoder = ECGEncoder()
+# for i in range(100):
+#     start = time.time()
+#     input_ecg = torch.randn(1, 1, 650)
+#     encoded = ecg_encoder.encode(input_ecg)[0]
+#     print(f"Encoded LDR: {encoded}\n{type(encoded), encoded.shape}", end="\t")
+#     print(f"Inference time: {time.time() - start}\n")
